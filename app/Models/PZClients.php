@@ -6,7 +6,7 @@
  * Time: 1:10 PM
  */
 
-namespace App\BaseModels;
+namespace App\Models;
 
 
 class PZClients extends PZBaseModel

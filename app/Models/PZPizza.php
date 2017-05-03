@@ -6,12 +6,18 @@
  * Time: 1:11 PM
  */
 
-namespace App\BaseModels;
+namespace App\Models;
 
 
 class PZPizza extends PZBaseModel
 {
-    protected $table = 'pz_cheese';
+    protected $table = 'pz_pizza';
 
     protected $fillable = ['id', 'name', 'chees_id', 'pizzpad_id', 'client_id', 'comment'];
+
+    public function clients()
+    {
+        return $this->hasMany(PZClients::class, 'id', 'client_id');
+
+    }
 }

@@ -6,7 +6,7 @@
  * Time: 1:24 PM
  */
 
-namespace App\BaseModels;
+namespace App\Models;
 
 
 class PZIngredients extends PZBaseModel

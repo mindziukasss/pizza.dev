@@ -6,7 +6,7 @@
  * Time: 1:11 PM
  */
 
-namespace App\BaseModels;
+namespace App\Models;
 
 
 class PZPizzaPad extends PZBaseModel
