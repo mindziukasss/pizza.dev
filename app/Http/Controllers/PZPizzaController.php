@@ -34,8 +34,21 @@ class PZPizzaController extends Controller {
 	public function create()
 	{
         $data = request()->all();
-        dd($data);
+//        dd($data);
+        $record = PZPizza::create(array(
+           'name' => $data['name'],
+            'client_id' => $data['clients'],
+            'pizzpad_id' => $data['pizzaPad'],
+            'chees_id' => $data['cheese'],
+        ));
 
+        $record['clients'] = PZClients::pluck('name', 'id')->toArray();
+        $record['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
+        $record['cheese'] = PZCheese::pluck('name','id')->toArray();
+        $record->ingredients()->sync($data['ingredients']);
+        $record['ingredients'] = PZIngredients::pluck('names','id')->toArray();
+
+        return view('pizzacreate', $record->toArray());
 	}
 
 	/**

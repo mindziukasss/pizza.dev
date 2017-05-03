@@ -31,4 +31,10 @@ class PZPizza extends PZBaseModel
         return $this->hasOne( PZCheese::class, 'id', 'chees_id');
     }
 
+    public function ingredients()
+    {
+        return $this->belongsToMany(PZIngredients::class, 'pz_connections_ingredients_pizza',
+            'pizza_id', 'ingredients_id');
+    }
+
 }

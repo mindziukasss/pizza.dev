@@ -25,3 +25,8 @@
 
 {!! Form::close() !!}
 
+@if(isset($name))
+
+    <div><h1>Picos pavadinimas: {{ $name }} </h1></div>
+
+@endif
