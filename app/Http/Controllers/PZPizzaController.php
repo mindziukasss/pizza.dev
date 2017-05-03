@@ -48,6 +48,13 @@ class PZPizzaController extends Controller {
         $record->ingredients()->sync($data['ingredients']);
         $record['ingredients'] = PZIngredients::pluck('names','id')->toArray();
 
+        if(sizeof($data['ingredients']) > 3)
+        {
+            echo 'Pasirinkote perdaug ingredientu';
+//            dd($data)
+            return view('pizzacreate',$data);
+        }
+
         return view('pizzacreate', $record->toArray());
 	}
 

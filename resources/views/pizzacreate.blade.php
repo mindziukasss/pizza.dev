@@ -8,12 +8,12 @@
 
     <h1>Uzsakymas </h1>
     <h2>Sugalvok picos pavadinima:</h2>
-    {{ Form::label('name', 'Pizza Name') }}
+    {{ Form::label('name', 'Sugalvok pavadinima picai') }}
     {{ Form::text('name') }}
 
     {{Form::select('pizzaPad', $pizzaPad)}}
     {{Form::select('cheese', $cheese)}}
-
+<h3>Galima rinktis tik tris ingridientus</h3>
 @foreach($ingredients as $key => $ingredient)
     <div>{{ Form::checkbox('ingredients[]', $key)}}
         {{$ingredient}}</div>
