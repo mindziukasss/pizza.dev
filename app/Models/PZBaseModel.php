@@ -9,6 +9,8 @@
 namespace App\BaseModels;
 
 
+use Ramsey\Uuid\Uuid;
+
 class PZBaseModel extends Model
 {
     use SoftDeletes;
