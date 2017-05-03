@@ -13,6 +13,6 @@ class PZClients extends PZBaseModel
 {
     protected $table = 'pz_clients';
 
-    protected $fillable = ['id', 'phone_nr', 'address'];
+    protected $fillable = ['id','name', 'phone_nr', 'address'];
 
 }

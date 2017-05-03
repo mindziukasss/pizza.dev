@@ -1,12 +1,15 @@
 
 
 {!! Form::open(['url' => route('pizza.create')]) !!}
-    {{ Form::label('name', 'Names') }}
+
+<div>
+
+    {{Form::select('clients', $clients)}}
+
+    <h1>Uzsakymas </h1>
+    <h2>Sugalvok picos pavadinima:</h2>
+    {{ Form::label('name', 'Pizza Name') }}
     {{ Form::text('name') }}
-    {{ Form::label('phone_nr', 'Phone number') }}
-    {{ Form::text('phone_nr') }}
-    {{ Form::label('address', 'Address') }}
-    {{Form::text('address') }}
 
     {{Form::select('pizzaPad', $pizzaPad)}}
     {{Form::select('cheese', $cheese)}}
@@ -16,6 +19,7 @@
         {{$ingredient}}</div>
 @endforeach
 
+</div>
 
 {{ Form::submit('Ok') }}
 

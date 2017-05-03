@@ -1,46 +1,44 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\PZCheese;
 use App\Models\PZClients;
-use App\Models\PZIngredients;
-use App\Models\PZPizza;
-use App\Models\PZPizzaPad;
 use Illuminate\Routing\Controller;
 
-class PZPizzaController extends Controller {
+class PZClientsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /pzpizza
+	 * GET /pzclients
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
-        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
-        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
-        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
-//		return PZPizza::with(['clients'])->get();
-        return view('pizzacreate', $data);
+        return view('clientcreate');
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /pzpizza/create
+	 * GET /pzclients/create
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
         $data = request()->all();
-        dd($data);
+//        dd($data);
+        $record = PZClients::create(array(
+           'name' => $data['name'],
+            'phone_nr' => $data['phone_nr'],
+            'address' => $data['address'],
+        ));
+
+        return view('clientcreate', $record->toArray());
 
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /pzpizza
+	 * POST /pzclients
 	 *
 	 * @return Response
 	 */
@@ -51,7 +49,7 @@ class PZPizzaController extends Controller {
 
 	/**
 	 * Display the specified resource.
-	 * GET /pzpizza/{id}
+	 * GET /pzclients/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -63,7 +61,7 @@ class PZPizzaController extends Controller {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /pzpizza/{id}/edit
+	 * GET /pzclients/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -75,7 +73,7 @@ class PZPizzaController extends Controller {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /pzpizza/{id}
+	 * PUT /pzclients/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -87,7 +85,7 @@ class PZPizzaController extends Controller {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /pzpizza/{id}
+	 * DELETE /pzclients/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response

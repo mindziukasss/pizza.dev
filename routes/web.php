@@ -11,8 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::group(['prefix' => '/'], function () {
+    Route::post('/create', ['as' => 'client.create', 'uses' => 'PZClientsController@create']);
+    Route::get('/', ['uses' => 'PZClientsController@index']);
+
 });
 
 Route::group(['prefix' => 'pizza'], function () {
