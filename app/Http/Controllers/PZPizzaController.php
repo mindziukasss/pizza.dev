@@ -1,6 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\PZCheese;
+use App\Models\PZClients;
+use App\Models\PZIngredients;
 use App\Models\PZPizza;
+use App\Models\PZPizzaPad;
 use Illuminate\Routing\Controller;
 
 class PZPizzaController extends Controller {
@@ -13,7 +17,11 @@ class PZPizzaController extends Controller {
 	 */
 	public function index()
 	{
-		return PZPizza::with(['clients'])->get();
+        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
+        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
+        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
+//		return PZPizza::with(['clients'])->get();
+        return view('pizzacreate', $data);
 	}
 
 	/**
@@ -24,7 +32,7 @@ class PZPizzaController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
 	}
 
 	/**

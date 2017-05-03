@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pizza', ['uses' => 'PZPizzaController@index']);
+Route::group(['prefix' => 'pizza'], function () {
+    Route::post('/create', ['as' => 'pizza.create', 'uses' => 'PZPizzaController@create']);
+    Route::get('/', ['uses' => 'PZPizzaController@index']);
+
+});

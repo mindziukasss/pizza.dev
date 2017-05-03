@@ -20,4 +20,15 @@ class PZPizza extends PZBaseModel
         return $this->hasMany(PZClients::class, 'id', 'client_id');
 
     }
+
+    public function pizzapad()
+    {
+        return $this->hasOne(PZPizzaPad::class, 'id', 'pizzpad_id');
+    }
+
+    public function cheese()
+    {
+        return $this->hasOne( PZCheese::class, 'id', 'chees_id');
+    }
+
 }
