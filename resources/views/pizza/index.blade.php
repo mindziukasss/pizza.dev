@@ -13,4 +13,5 @@
     @foreach($pizza['ingredients'] as $ingredient)
         <div> {{ $ingredient['names'] }}</div>
     @endforeach
+    <div>{{ $pizza['calories'] }} kal.</div>
 @endforeach

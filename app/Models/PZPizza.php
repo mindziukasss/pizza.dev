@@ -13,7 +13,7 @@ class PZPizza extends PZBaseModel
 {
     protected $table = 'pz_pizza';
 
-    protected $fillable = ['id', 'name', 'chees_id', 'pizzpad_id', 'client_id', 'comment'];
+    protected $fillable = ['id', 'name', 'chees_id', 'pizzpad_id', 'client_id','calories' ,'comment'];
 
     public function clients()
     {

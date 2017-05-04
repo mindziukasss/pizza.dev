@@ -9,7 +9,7 @@
 
     <h1>Uzsakymas </h1>
     <h2>Sugalvok picos pavadinima:</h2>
-    {{ Form::label('name', 'Sugalvok pavadinima picai') }}
+    {{ Form::label('name', 'Sugalvok pavadinima picaipizpi') }}
     {{ Form::text('name') }}
 
     {{Form::select('pizzaPad', $pizzaPad)}}

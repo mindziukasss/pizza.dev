@@ -21,6 +21,7 @@ class PZPizzaController extends Controller {
         $configuration = [];
         $configuration['pizzas'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->get()
         ->toArray();
+
         return view('pizza.index', $configuration);
 	}
 
@@ -48,7 +49,7 @@ class PZPizzaController extends Controller {
         $config = $this->getFormData();
 
         $data = request()->all();
-//        dd($data);
+
         if(sizeof($data['ingredients']) > 3)
         {
             $config['error'] = ['message' => 'galima rinktis tik 3' ];
@@ -56,12 +57,26 @@ class PZPizzaController extends Controller {
             return view('pizzacreate',$config);
         }
 
+        $pizzaPadCal = PZPizzaPad::where('id',$data['pizzaPad'])->value('calorie');
+        $cheesCal = PZCheese::where('id', $data['cheese'])->value('calorie');
+
+        $ingriediensCal = 0;
+
+        for ($i = 0; $i < sizeof($data['ingredients']); $i++)
+        {
+            $ingriediensCal += PZIngredients::where('id', $data['ingredients'][$i])->value('calorie');
+        }
+
+        $pizzaCalsum = $pizzaPadCal + $cheesCal + $ingriediensCal;
+
         $record = PZPizza::create(array(
            'name' => $data['name'],
             'client_id' => $data['clients'],
             'pizzpad_id' => $data['pizzaPad'],
             'chees_id' => $data['cheese'],
+            'calories' => $pizzaCalsum
         ));
+
 
         $record->ingredients()->sync($data['ingredients']);
 
