@@ -17,12 +17,16 @@ class PZPizzaController extends Controller {
 	 */
 	public function index()
 	{
-        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
-        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
-        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
-        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
+        $configuration = [];
+        $configuration['pizzas'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->get()
+        ->toArray();
+//        dd($configuration);
+//        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
+//        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
+//        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
+//        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
 //		return PZPizza::with(['clients'])->get();
-        return view('pizzacreate', $data);
+        return view('pizza.index', $configuration);
 	}
 
 	/**
