@@ -1,3 +1,7 @@
+@if(isset($error))
+    <h4 style="color:red">{{ $error['message'] }}</h4>
+@endif
+
 {!! Form::open(['route' => 'client.store']) !!}
 <div>
     <h1>Kliento duomenys:</h1>

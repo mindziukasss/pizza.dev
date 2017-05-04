@@ -26,9 +26,9 @@ class PZClientsController extends Controller {
 	 */
 	public function create()
 	{
-        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
+	    $config = $this->getFormData();
 
-        return view('clientcreate', $data);
+        return view('clientcreate', $config);
 	}
 
 	/**
@@ -39,14 +39,27 @@ class PZClientsController extends Controller {
 	 */
 	public function store()
 	{
+	    $config = $this->getFormData();
         $data = request()->all();
-        $record = PZClients::create(array(
-           'name' => $data['name'],
+        if(!isset($data['name']))
+        {
+            $config['error'] = ['message' => 'Irasykite varda'];
+
+            return view('clientcreate', $config);
+        }
+
+        if(!isset($data['phone_nr']))
+        {
+            $config['error'] = ['message' => 'Irasykite telefona'];
+
+            return view('clientcreate', $config);
+        }
+          PZClients::create(array(
+            'name' => $data['name'],
             'phone_nr' => $data['phone_nr'],
             'address' => $data['address'],
         ));
-        return view('clientcreate', $record->toArray());
-
+        return view('clientcreate', $config);
 	}
 
 	/**
@@ -96,5 +109,12 @@ class PZClientsController extends Controller {
 	{
 		//
 	}
+
+	public function getFormData()
+    {
+        $config['clients'] = PZClients::pluck('name', 'id')->toArray();
+
+        return $config;
+    }
 
 }
