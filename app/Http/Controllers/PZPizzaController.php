@@ -32,12 +32,9 @@ class PZPizzaController extends Controller {
 	 */
 	public function create()
 	{
-        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
-        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
-        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
-        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
+        $config = $this->getFormData();
 
-        return view('pizzacreate',$data);
+        return view('pizzacreate',$config);
 	}
 
 	/**
@@ -48,12 +45,17 @@ class PZPizzaController extends Controller {
 	 */
 	public function store()
 	{
+        $config = $this->getFormData();
+
         $data = request()->all();
 //        dd($data);
         if(sizeof($data['ingredients']) > 3)
         {
-            return view('pizzacreate',$data);
+            $config['error'] = ['message' => 'galima rinktis tik 3' ];
+
+            return view('pizzacreate',$config);
         }
+
         $record = PZPizza::create(array(
            'name' => $data['name'],
             'client_id' => $data['clients'],
@@ -61,14 +63,9 @@ class PZPizzaController extends Controller {
             'chees_id' => $data['cheese'],
         ));
 
-        $record['clients'] = PZClients::pluck('name', 'id')->toArray();
-        $record['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
-        $record['cheese'] = PZCheese::pluck('name','id')->toArray();
         $record->ingredients()->sync($data['ingredients']);
-        $record['ingredients'] = PZIngredients::pluck('names','id')->toArray();
 
-
-        return view('pizzacreate', $record->toArray());
+        return view('pizzacreate', $config);
 		//
 	}
 
@@ -119,5 +116,16 @@ class PZPizzaController extends Controller {
 	{
 		//
 	}
+
+
+	public function getFormData()
+    {
+        $config['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
+        $config['cheese'] = PZCheese::pluck('name','id')->toArray();
+        $config['ingredients'] = PZIngredients::pluck('names','id')->toArray();
+        $config['clients'] = PZClients::pluck('name', 'id')->toArray();
+
+        return $config;
+    }
 
 }

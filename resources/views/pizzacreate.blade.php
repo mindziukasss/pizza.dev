@@ -1,3 +1,7 @@
+@if(isset($error))
+    <h4 style="color:red">{{ $error['message'] }}</h4>
+@endif
+
 {!! Form::open(['route' => 'pizza.store']) !!}
 <div>
 
@@ -22,8 +26,8 @@
 
 {!! Form::close() !!}
 
+
 @if(isset($name))
 
     <div><h1>Picos pavadinimas: {{ $name }} </h1></div>
-
 @endif
