@@ -2,6 +2,7 @@
 
 use App\Models\PZCheese;
 use App\Models\PZClients;
+use App\Models\PZConnectionsIngredientsPizza;
 use App\Models\PZIngredients;
 use App\Models\PZPizza;
 use App\Models\PZPizzaPad;
@@ -18,11 +19,23 @@ class PZPizzaController extends Controller {
 	 */
 	public function index()
 	{
-        $configuration = [];
-        $configuration['pizzas'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->get()
+        $config = [];
+        $config['pizzas'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->get()
         ->toArray();
 
-        return view('pizza.index', $configuration);
+        $ingredientsTop = [];
+        foreach ($config['pizzas'] as $pizza)
+        {
+            foreach ($pizza['ingredients'] as $ingredient)
+            {
+                array_push($ingredientsTop, $ingredient['names']);
+            }
+        }
+        $sum = array_count_values($ingredientsTop);
+        arsort($sum);
+        $config['ingredients'] = $sum;
+
+        return view('pizza.index', $config);
 	}
 
 	/**

@@ -15,3 +15,9 @@
     @endforeach
     <div>{{ $pizza['calories'] }} kal.</div>
 @endforeach
+<div><h3>Pop Ingridientai</h3></div>
+
+@foreach($ingredients as $key => $top)
+    <div>{{$key}}
+        {{$top}}</div>
+@endforeach

@@ -37,4 +37,6 @@ class PZPizza extends PZBaseModel
             'pizza_id', 'ingredients_id');
     }
 
+
+
 }
