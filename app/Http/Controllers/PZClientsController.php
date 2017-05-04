@@ -13,7 +13,9 @@ class PZClientsController extends Controller {
 	 */
 	public function index()
 	{
-        return view('clientcreate');
+	    $data['clients'] = PZClients::all();
+
+        return view('client.index', $data);
 	}
 
 	/**
@@ -24,16 +26,9 @@ class PZClientsController extends Controller {
 	 */
 	public function create()
 	{
-        $data = request()->all();
-//        dd($data);
-        $record = PZClients::create(array(
-           'name' => $data['name'],
-            'phone_nr' => $data['phone_nr'],
-            'address' => $data['address'],
-        ));
+        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
 
-        return view('clientcreate', $record->toArray());
-
+        return view('clientcreate', $data);
 	}
 
 	/**
@@ -44,7 +39,14 @@ class PZClientsController extends Controller {
 	 */
 	public function store()
 	{
-		//
+        $data = request()->all();
+        $record = PZClients::create(array(
+           'name' => $data['name'],
+            'phone_nr' => $data['phone_nr'],
+            'address' => $data['address'],
+        ));
+        return view('clientcreate', $record->toArray());
+
 	}
 
 	/**

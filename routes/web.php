@@ -16,13 +16,15 @@
 //});
 
 Route::group(['prefix' => '/'], function () {
-    Route::post('/create', ['as' => 'client.create', 'uses' => 'PZClientsController@create']);
+    Route::get('/create', ['uses' => 'PZClientsController@create']);
+    Route::post('/store', ['as' => 'client.store', 'uses' => 'PZClientsController@store']);
     Route::get('/', ['uses' => 'PZClientsController@index']);
 
 });
 
 Route::group(['prefix' => 'pizza'], function () {
-    Route::post('/create', ['as' => 'pizza.create', 'uses' => 'PZPizzaController@create']);
+    Route::get('/create', ['uses' => 'PZPizzaController@create']);
+    Route::post('/store', ['as' => 'pizza.store', 'uses' => 'PZPizzaController@store']);
     Route::get('/', ['uses' => 'PZPizzaController@index']);
 
 });

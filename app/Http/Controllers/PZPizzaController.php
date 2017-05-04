@@ -7,6 +7,7 @@ use App\Models\PZPizza;
 use App\Models\PZPizzaPad;
 use Illuminate\Routing\Controller;
 
+
 class PZPizzaController extends Controller {
 
 	/**
@@ -20,12 +21,6 @@ class PZPizzaController extends Controller {
         $configuration = [];
         $configuration['pizzas'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->get()
         ->toArray();
-//        dd($configuration);
-//        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
-//        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
-//        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
-//        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
-//		return PZPizza::with(['clients'])->get();
         return view('pizza.index', $configuration);
 	}
 
@@ -37,8 +32,28 @@ class PZPizzaController extends Controller {
 	 */
 	public function create()
 	{
+        $data['pizzaPad'] = PZPizzaPad::pluck('name','id')->toArray();
+        $data['cheese'] = PZCheese::pluck('name','id')->toArray();
+        $data['ingredients'] = PZIngredients::pluck('names','id')->toArray();
+        $data['clients'] = PZClients::pluck('name', 'id')->toArray();
+
+        return view('pizzacreate',$data);
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /pzpizza
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
         $data = request()->all();
 //        dd($data);
+        if(sizeof($data['ingredients']) > 3)
+        {
+            return view('pizzacreate',$data);
+        }
         $record = PZPizza::create(array(
            'name' => $data['name'],
             'client_id' => $data['clients'],
@@ -52,24 +67,8 @@ class PZPizzaController extends Controller {
         $record->ingredients()->sync($data['ingredients']);
         $record['ingredients'] = PZIngredients::pluck('names','id')->toArray();
 
-        if(sizeof($data['ingredients']) > 3)
-        {
-            echo 'Pasirinkote perdaug ingredientu';
-//            dd($data)
-            return view('pizzacreate',$data);
-        }
 
         return view('pizzacreate', $record->toArray());
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /pzpizza
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
 		//
 	}
 

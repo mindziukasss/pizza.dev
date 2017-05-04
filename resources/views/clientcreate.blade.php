@@ -1,4 +1,4 @@
-{!! Form::open(['url' => route('client.create')]) !!}
+{!! Form::open(['route' => 'client.store']) !!}
 <div>
     <h1>Kliento duomenys:</h1>
     {{ Form::label('name', 'Clients Names') }}

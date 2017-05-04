@@ -1,7 +1,4 @@
-
-
-{!! Form::open(['url' => route('pizza.create')]) !!}
-
+{!! Form::open(['route' => 'pizza.store']) !!}
 <div>
 
     {{Form::select('clients', $clients)}}
