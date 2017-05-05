@@ -48,7 +48,7 @@ class PZPizzaController extends Controller {
 	{
         $config = $this->getFormData();
 
-        return view('pizzacreate',$config);
+        return view('pizza.create',$config);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class PZPizzaController extends Controller {
         {
             $config['error'] = ['message' => 'galima rinktis tik 3' ];
 
-            return view('pizzacreate',$config);
+            return view('pizza.create',$config);
         }
 
         $pizzaPadCal = PZPizzaPad::where('id',$data['pizzaPad'])->value('calorie');
@@ -93,7 +93,7 @@ class PZPizzaController extends Controller {
 
         $record->ingredients()->sync($data['ingredients']);
 
-        return view('pizzacreate', $config);
+        return view('pizza.create', $config);
 		//
 	}
 
@@ -106,7 +106,9 @@ class PZPizzaController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+        $config['pizza'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->find($id);
+
+        return view('pizza.show', $config);
 	}
 
 	/**
@@ -118,7 +120,17 @@ class PZPizzaController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        $config = $this->getFormData();
+        $config['pizza'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->find($id)->toArray();
+        $config['route'] = route('pizza.edit', $id);
+        $data = [];
+        foreach ($config['pizza']['ingredients'] as $ingredient )
+        {
+            array_push($data , $ingredient['id']);
+        }
+        $config['pizzaIngredients'] = $data;
+		return view('pizza.edit', $config);
+
 	}
 
 	/**
@@ -130,7 +142,14 @@ class PZPizzaController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+        $config = $this->getFormData();
+        $config['pizza'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->find($id);
+
+
+
+
+
+        return view('pizza.index', $config);
 	}
 
 	/**

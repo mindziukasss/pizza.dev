@@ -28,7 +28,7 @@ class PZClientsController extends Controller {
 	{
 	    $config = $this->getFormData();
 
-        return view('clientcreate', $config);
+        return view('client.create', $config);
 	}
 
 	/**
@@ -45,21 +45,21 @@ class PZClientsController extends Controller {
         {
             $config['error'] = ['message' => 'Irasykite varda'];
 
-            return view('clientcreate', $config);
+            return view('client.create', $config);
         }
 
         if(!isset($data['phone_nr']))
         {
             $config['error'] = ['message' => 'Irasykite telefona'];
 
-            return view('clientcreate', $config);
+            return view('client.create', $config);
         }
           PZClients::create(array(
             'name' => $data['name'],
             'phone_nr' => $data['phone_nr'],
             'address' => $data['address'],
         ));
-        return view('clientcreate', $config);
+        return view('client.create', $config);
 	}
 
 	/**
