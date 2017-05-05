@@ -27,7 +27,6 @@
             @else
             <div>
                 {{ Form::checkbox('ingredients[]', $key)}}{{$ingredient}}
-                {{ Form::label($ingredient, $ingredient) }}
             </div>
 
         @endif

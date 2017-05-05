@@ -142,7 +142,7 @@ class PZPizzaController extends Controller {
 	 */
 	public function update($id)
 	{
-        $config = $this->getFormData();
+
         $record = PZPizza::find($id);
         $data = request()->all();
 
