@@ -1,3 +1,6 @@
+@extends('main')
+
+@section('content')
 @foreach($pizzas as $pizza)
     @foreach( $pizza['clients'] as $client )
         <div><h2>Klientu duomenys</h2></div>
@@ -21,3 +24,4 @@
     <div>{{$key}}
         {{$top}}</div>
 @endforeach
+@endsection
