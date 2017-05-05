@@ -28,6 +28,6 @@ Route::group(['prefix' => 'pizza'], function () {
     Route::get('/{id}', ['uses' => 'PZPizzaController@show']);
     Route::get('/{id}/edit', ['uses' => 'PZPizzaController@edit']);
     Route::post('/{id}/edit', ['as' => 'pizza.edit', 'uses' => 'PZPizzaController@update']);
-    Route::get('/', ['uses' => 'PZPizzaController@index']);
+    Route::get('/', ['as' => 'pizza', 'uses' => 'PZPizzaController@index']);
 
 });

@@ -143,13 +143,32 @@ class PZPizzaController extends Controller {
 	public function update($id)
 	{
         $config = $this->getFormData();
-        $config['pizza'] = PZPizza::with(['clients', 'pizzapad', 'cheese', 'ingredients'])->find($id);
+        $record = PZPizza::find($id);
+        $data = request()->all();
 
+        $pizzaPadCal = PZPizzaPad::where('id',$data['pizzaPad'])->value('calorie');
+        $cheesCal = PZCheese::where('id', $data['cheese'])->value('calorie');
 
+        $ingriediensCal = 0;
 
+        for ($i = 0; $i < sizeof($data['ingredients']); $i++)
+        {
+            $ingriediensCal += PZIngredients::where('id', $data['ingredients'][$i])->value('calorie');
+        }
 
+        $pizzaCalsum = $pizzaPadCal + $cheesCal + $ingriediensCal;
 
-        return view('pizza.index', $config);
+        $record->update([
+            'name' => $data['name'],
+            'client_id' => $data['clients'],
+            'pizzpad_id' => $data['pizzaPad'],
+            'chees_id' => $data['cheese'],
+            'calories' => $pizzaCalsum
+        ]);
+
+        $record->ingredients()->sync($data['ingredients']);
+
+        return redirect()->route('pizza');
 	}
 
 	/**
