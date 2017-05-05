@@ -180,7 +180,12 @@ class PZPizzaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+// $config = $this->getFormData();
+//        $pizza = PZPizza::find($id);
+//        $pizza->delete();
+    PZConnectionsIngredientsPizza::where('pizza_id', $id)->forceDelete();
+    PZPizza::destroy($id);
+        return redirect()->route('pizza');
 	}
 
 
