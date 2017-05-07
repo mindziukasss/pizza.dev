@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">

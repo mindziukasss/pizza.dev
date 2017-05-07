@@ -4,7 +4,7 @@
 
 
 
-<table class="table table-striped">
+<table class="table">
 
     <thead>
         <tr>
@@ -14,6 +14,7 @@
             <th>Suris</th>
             <th>Ingridientai</th>
             <th>Kaloriju suma</th>
+			<th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         @endforeach
                 </ul></td>
                <td>{{ $pizza['calories'] }}</td>
+		 <td><a href="{{route('pizza.show', $pizza['id'])}}" class="btn btn-primary">Show</a></td> 
     @endforeach
     </tr>
     </tbody>

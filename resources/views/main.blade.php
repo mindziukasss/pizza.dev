@@ -14,8 +14,8 @@
     <h1>@yield('title')</h1>
     @yield('content')
 
-    @include('footer')
 </div>
+    @include('footer')
 </body>
 @include('js')
 @include('scripts')

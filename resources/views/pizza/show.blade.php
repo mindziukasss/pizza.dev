@@ -1,15 +1,44 @@
-Picos pavadinimas: {{ $pizza['name'] }}
-<div>Padas:{{ $pizza['pizzapad']['name'] }}</div>
-<div>Pasirinktas suris:{{ $pizza['cheese']['name'] }}</div>
-<div>Pasirnkti ingriedientai:</div>
-@foreach($pizza['ingredients'] as $ingredient)
-    <div> {{ $ingredient['names'] }}</div>
-@endforeach
-<div>{{ $pizza['calories'] }} kal.</div>
+@extends('main')
 
-<a href="{{ $pizza['id']}}/edit">Edit order!</a>
+@section('content')
+    {{--<link rel="stylesheet" href="css/app.css" />--}}
+	
+<div class ="row">
+	<div class="col-md-10">
+<table class="table">
 
+    <thead>
+        <tr>
+            <th>Picos pavadinimas</th>
+            <th>Padas</th>
+            <th>Suris</th>
+            <th>Ingridientai</th>
+            <th>Kaloriju skc.</th>
+            <th></th>
+			<th></th>
+        </tr>
+    </thead>
+    <tbody>
+		<td>{{ $pizza['name'] }}</td>
+		<td>{{ $pizza['pizzapad']['name'] }}</td>
+		<td>{{ $pizza['cheese']['name'] }}</td>
+		<td><ul>
+			@foreach($pizza['ingredients'] as $ingredient)
+				<li>{{ $ingredient['names'] }}</li>
+			@endforeach
+			</ul></td>
+		<td>{{ $pizza['calories'] }} kal.</td>
 
-{!! Form::open(['route' => ['pizza.destroy', $pizza->id], 'method' => 'DELETE']) !!}
-{!! Form::submit('Delete', ['class'=>'btn btn-danger btn-block']) !!}
-{!! Form::close() !!}
+		<td><a href="{{ $pizza['id']}}/edit" class="btn btn-primary">Edit</a></td>
+	
+		<td>
+			{!! Form::open(['route' => ['pizza.destroy', $pizza->id], 'method' => 'DELETE']) !!}
+			{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+			{!! Form::close() !!}
+		</td>
+    </tbody>
+</table>
+</div>
+</div>
+
+@endsection
