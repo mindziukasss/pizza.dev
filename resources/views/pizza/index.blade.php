@@ -42,6 +42,7 @@
     </tbody>
 </table>
 
+<a href="{{route('pizza.create')}}">Create new order</a>
 
 <div><h3>Pop Ingridientai</h3></div>
 
@@ -49,6 +50,7 @@
     <div>{{$key}}
         {{$top}}</div>
 @endforeach
+
 
 @endsection
 

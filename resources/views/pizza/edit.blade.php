@@ -1,39 +1,42 @@
-@if(isset($error))
-    <h4 style="color:red">{{ $error['message'] }}</h4>
-@endif
+@extends('main')
 
-{!! Form::open(['url' => $route]) !!}
+@section('content')
 
+<div class ="row">
+	<div class="col-md-10">
+		@if(isset($error))
+			<h4 style="color:red">{{ $error['message'] }}</h4>
+		@endif
+		<div class="form">
+			{!! Form::open(['url' => $route]) !!}
+				{{Form::select('clients', $clients, $pizza['clients'])}}
 
+				<h1>Edit order</h1>
+				{{ Form::label('name', 'Sugalvok pavadinima picaipizpi') }}
+				{{ Form::text('name',$pizza['name']) }}
 
-<div>
+			<div>Pasirink pada{{Form::select('pizzaPad', $pizzaPad, $pizza['pizzapad'])}}</div>
+			<div>Pasirink suri{{Form::select('cheese', $cheese, $pizza['cheese'])}}</div>
+			<h3>Galima rinktis tik tris ingridientus</h3>
+			@foreach($ingredients as $key => $ingredient)
+				@if(in_array($key,$pizzaIngredients) )
+					<div>
+						{{ Form::checkbox('ingredients[]',$key,true)}}
+						 {{ Form::label($ingredient, $ingredient) }}
+					</div>
+					@else
+					<div>
+						{{ Form::checkbox('ingredients[]', $key)}}{{$ingredient}}
+					</div>
 
-    {{Form::select('clients', $clients, $pizza['clients'])}}
+				@endif
+			@endforeach
 
-    <h1>Uzsakymas </h1>
-    <h2>Sugalvok picos pavadinima:</h2>
-    {{ Form::label('name', 'Sugalvok pavadinima picaipizpi') }}
-    {{ Form::text('name',$pizza['name']) }}
+		</div>
 
-    {{Form::select('pizzaPad', $pizzaPad, $pizza['pizzapad'])}}
-    {{Form::select('cheese', $cheese, $pizza['cheese'])}}
-    <h3>Galima rinktis tik tris ingridientus</h3>
-    @foreach($ingredients as $key => $ingredient)
-        @if(in_array($key,$pizzaIngredients) )
-            <div>
-                {{ Form::checkbox('ingredients[]',$key,true)}}
-                 {{ Form::label($ingredient, $ingredient) }}
-            </div>
-            @else
-            <div>
-                {{ Form::checkbox('ingredients[]', $key)}}{{$ingredient}}
-            </div>
+		{{ Form::submit('Save order', ['class'=>'btn btn-primary']) }}
 
-        @endif
-    @endforeach
-
+		{!! Form::close() !!}
+	</div>
 </div>
-
-{{ Form::submit('Ok') }}
-
-{!! Form::close() !!}
+@endsection

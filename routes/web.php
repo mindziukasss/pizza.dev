@@ -24,7 +24,7 @@ Route::group(['prefix' => '/'], function () {
 
 Route::group(['prefix' => 'pizza'], function () {
     Route::get('/', ['as' => 'pizza', 'uses' => 'PZPizzaController@index']);
-    Route::get('/create', ['uses' => 'PZPizzaController@create']);
+    Route::get('/create', ['as' =>'pizza.create','uses' => 'PZPizzaController@create']);
     Route::post('/store', ['as' => 'pizza.store', 'uses' => 'PZPizzaController@store']);
     Route::get('/{id}', ['as' => 'pizza.show', 'uses' => 'PZPizzaController@show']);
     Route::get('/{id}/edit', ['uses' => 'PZPizzaController@edit']);

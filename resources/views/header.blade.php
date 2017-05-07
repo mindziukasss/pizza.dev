@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ Request::is('/') ? "active" :"" }}"><a href="/">Clients</a></li>
-                <li class="{{ Request::is('pizza') ? "active" :"" }}"><a href="/blog">Pizzas</a></li>
+                <li class="{{ Request::is('pizza') ? "active" :"" }}"><a href="/pizza">Pizzas</a></li>
             </ul>
         </div>
     </div>
